@@ -15,12 +15,12 @@ app.use(bodyParser.json());
 
 // Table Reservations (DATA)
 // =============================================================
-const tables = [
+let tables = [
 ];
 
 // Waitlist (DATA)
 // =============================================================
-const waitlist = [
+let waitlist = [
   ];
 
 // Routes
@@ -53,22 +53,24 @@ app.get("/api/waitlist", function(req, res) {
     return res.json(waitlist);
   });
 
-// // Create New Characters - takes in JSON input
-// app.post("/api/tables", function(req, res) {
-//   // req.body hosts is equal to the JSON post sent from the user
-//   // This works because of our body-parser middleware
-//   const newcharacter = req.body;
+// Create New Characters - takes in JSON input
+app.post("/api/tables", function(req, res) {
+  // req.body hosts is equal to the JSON post sent from the user
+  // This works because of our body-parser middleware
+  const newreservation = req.body;
 
-//   // Using a RegEx Pattern to remove spaces from newCharacter
-//   // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-//   newcharacter.routeName = newcharacter.name.replace(/\s+/g, "").toLowerCase();
+  console.log(newreservation);
 
-//   console.log(newcharacter);
+  if (tables.length > 4) {
+      waitlist.push(newreservation);
+      res.json(newreservation); 
+  } else {
+      tables.push(newreservation);
+    
+      res.json(newreservation);
+  }
 
-//   characters.push(newcharacter);
-
-//   res.json(newcharacter);
-// });
+ });
 
 // Starts the server to begin listening
 // =============================================================
